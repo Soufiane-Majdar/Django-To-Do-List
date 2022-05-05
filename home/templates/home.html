@@ -1,0 +1,115 @@
+{% extends 'base.html' %}{% load bootstrap5 %} {% block content %}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card">
+                    <div class="card-body p-5">
+
+
+                        <form class="d-flex justify-content-center align-items-center mb-4" action="add" method="post">
+                            {% csrf_token %}
+                            <div class="form-outline flex-fill mt-5">
+                                <input type="text" id="form2" class="form-control" name="task" />
+                                <label class="form-label" for="form2">New task...</label>
+                            </div>
+                            <button type="submit" class="btn btn-dark ms-3 mt-3">Add</button>
+                        </form>
+
+
+                        <!-- Tabs navs -->
+                        <ul class="nav nav-tabs mb-4 pb-2" id="ex1" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link {{active1}}" id="ex1-tab-1" data-mdb-toggle="tab" href="{% url 'all'%}" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">All</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link {{active2}}" id="ex1-tab-2" data-mdb-toggle="tab" href="{% url 'active'%}" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">Active</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link {{active3}}" id="ex1-tab-3" data-mdb-toggle="tab" href="{% url 'completed'%}" role="tab" aria-controls="ex1-tabs-3" aria-selected="false">Completed</a>
+                            </li>
+                        </ul>
+                        <!-- Tabs navs -->
+                        <!-- Tabs content -->
+                        <div class="tab-content" id="ex1-content">
+                            <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                                <ul class="list-group mb-0">
+
+                                    {% for task in tasks %} {% if task.Completed == True %}
+
+
+                                    <li class="list-group-item d-flex align-items-center border-0 mb-2 p-3 rounded" style="background-color: #f4f6f7;">
+
+                                        <s>{{task.task}}</s>
+
+                                        <div class="position-absolute top-0 end-0 m-2">
+                                            <button class="btn btn-success " type="submit">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                                    <path
+                                                        d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z" />
+                                                </svg> 
+                                             
+                                            </button>
+                                            <button class="btn btn-danger " type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg> 
+                                               
+                                            </button>
+                                        </div>
+                                    </li>
+
+                                    {% else %}
+
+
+                                    <li class="list-group-item d-flex align-items-center border-0 mb-2 p-3 rounded" style="background-color: #f4f6f7;">
+
+                                        {{task.task}}
+
+                                        <div class="position-absolute top-0 end-0 m-2">
+                                            <button class="btn btn-success " type="submit">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                                    <path
+                                                        d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z" />
+                                                </svg> 
+                                             
+                                            </button>
+                                            <button class="btn btn-danger " type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg> 
+                                               
+                                            </button>
+                                        </div>
+                                    </li> {% endif %} {% endfor %}
+                                    <!-- Complited 
+                                    <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded" style="background-color: #f4f6f7;">
+                                        <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked />
+                                        <s>Dapibus ac facilisis in</s>
+                                    </li>
+                                    -->
+                                    <!-- Active 
+                                    <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded" style="background-color: #f4f6f7;">
+                                        <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." /> Morbi leo risus
+                                    </li>
+                                    -->
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Tabs content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> {% endblock %}
