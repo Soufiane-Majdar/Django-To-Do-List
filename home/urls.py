@@ -8,6 +8,9 @@ urlpatterns = [
 
 
     path('add',views.add,name='add'),
+    path('donne/<int:idt>',views.donne,name='donne'),
+    path('delete/<int:idt>',views.delete,name='delete'),
+
 
 
 ]

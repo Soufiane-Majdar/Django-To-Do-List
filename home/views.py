@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Todo
 # Create your views here.
 
@@ -19,16 +19,33 @@ def Completed(request):
     a=len(Todo.objects.filter(Completed=False))
     return render(request,'home.html',{'tasks':tasks,'active3':"active",'a':a})
 
+
+
+
 def add(request):
     try:
         new=request.POST['task']
         t = Todo(task=new,Completed=False)
         t.save()
-        a=len(Todo.objects.filter(Completed=False))
-        tasks=Todo.objects.all
-        return render(request,'home.html',{'tasks':tasks,'active1':"active",'a':a})
+        return redirect("all")  
     except:
-        tasks=Todo.objects.all
-        a=len(Todo.objects.filter(Completed=False))
-        return render(request,'home.html',{'tasks':tasks,'active1':"active",'a':a})
+        return redirect("all")
+
+def donne(request,idt=None):
+    if(idt==None):
+        return redirect("all")
+    else:
+        t=Todo.objects.filter(id=idt)
+        t.update(Completed=True)
+
+        return redirect("all")
+
+def delete(request,idt=None):
+    if(idt==None):
+        return redirect("all")
+    else:
+        t=Todo.objects.filter(id=idt)
+        t.delete()
+        return redirect("all")
+
 
